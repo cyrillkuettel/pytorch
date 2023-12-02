@@ -21,10 +21,26 @@ pip install -r requirements.txt
 python3 setup.py develop
 
 
-Command to build 
+## Alternatively, install pytorch pre-built binaries:
+
 ```bash
-PYTHON=/usr/bin/python3 BUILD_LITE_INTERPRETER=1 BUILD_PYTORCH_MOBILE=1 IOS_ARCH=arm64 ./scripts/build_ios.sh
+conda create -n pytorch python=3.8
+conda activate pytorch
+conda install pytorch::pytorch torchvision -c pytorch
+cd pytorch
+conda activate pytorch
 ```
 
+Using `USE_BLAS` stil results in linker errors. It can't find BLAS for some
+reason. 
 
+Optionally, ccache for more speed:
 
+```
+brew install ccache
+```
+
+Command to build 
+```bash
+USE_BLAS=0 BUILD_LITE_INTERPRETER=1 BUILD_PYTORCH_MOBILE=1 IOS_ARCH=arm64 ./scripts/build_ios.sh
+```
